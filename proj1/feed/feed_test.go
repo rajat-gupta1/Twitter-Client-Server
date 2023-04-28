@@ -218,23 +218,23 @@ func TestParallelAdd(t *testing.T) {
 			wg.Add(1)
 			go randomReads(feed, totalSize, &wg) //Throw in some readers while adding
 		}
-		
+
 	}
 	wg.Wait()
-	
-		//Verify that all 1000 posts are contained in the feed
-		for i := 0; i < totalSize; i++ {
-			if !feed.Contains(float64(i)) {
-				t.Errorf("FAILED: Feed should contain timestamp (%v)\n", i)
-			}
-		}
 
-		//Verify that you can remove all 1000 posts
-		for i := 0; i < totalSize; i++ {
-			if !feed.Remove(float64(i)) {
-				t.Errorf("FAILED: Did not remove (%v)\n", i)
-			}
+	//Verify that all 1000 posts are contained in the feed
+	for i := 0; i < totalSize; i++ {
+		if !feed.Contains(float64(i)) {
+			t.Errorf("FAILED: Feed should contain timestamp (%v)\n", i)
 		}
+	}
+
+	//Verify that you can remove all 1000 posts
+	for i := 0; i < totalSize; i++ {
+		if !feed.Remove(float64(i)) {
+			t.Errorf("FAILED: Did not remove (%v)\n", i)
+		}
+	}
 }
 func TestParallelRemoveAndAdd(t *testing.T) {
 
