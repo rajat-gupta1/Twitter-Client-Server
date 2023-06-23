@@ -4,9 +4,7 @@ import (
 	L "proj1/lock"
 )
 
-// package main
-
-//Feed represents a user's twitter feed
+// Feed represents a user's twitter feed
 // You will add to this interface the implementations as you complete them.
 type Feed interface {
 	Add(body string, timestamp float64)

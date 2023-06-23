@@ -23,6 +23,7 @@ func NewRWMutex() *RWMutex {
 	return &newRWMutex
 }
 
+// Function to do write lock the queue
 func (rw *RWMutex) Lock() {
 	rw.mu.Lock()
 	rw.NumWritersWaiting += 1
@@ -34,6 +35,7 @@ func (rw *RWMutex) Lock() {
 	rw.mu.Unlock()
 }
 
+// Function to do write unlock the queue
 func (rw *RWMutex) Unlock() {
 	rw.mu.Lock()
 	rw.WriterActive = false
@@ -41,6 +43,7 @@ func (rw *RWMutex) Unlock() {
 	rw.mu.Unlock()
 }
 
+// Function to do Read Lock
 func (rw *RWMutex) RLock() {
 	rw.mu.Lock()
 	for rw.NumWritersWaiting > 0 || rw.WriterActive || rw.NumReadersActive >= 32 {
@@ -50,6 +53,7 @@ func (rw *RWMutex) RLock() {
 	rw.mu.Unlock()
 }
 
+// Function to do Read Unlock
 func (rw *RWMutex) RUnlock() {
 	rw.mu.Lock()
 	rw.NumReadersActive -= 1
